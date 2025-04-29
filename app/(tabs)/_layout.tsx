@@ -15,22 +15,22 @@ export default function TabsLayout() {
                 }}
             />
             <Tabs.Screen 
+                name="power"
+                options={{
+                    title: "Power",
+                    headerShown: false,
+                    tabBarIcon: ({color, size}) => (
+                        <Ionicons name="flash-outline" size={size} color={color} />
+                    )
+                }}
+            />
+            <Tabs.Screen 
                 name="water"
                 options={{
                     title: "Water",
                     headerShown: false,
                     tabBarIcon: ({color, size}) => (
                         <Ionicons name="water-outline" size={size} color={color} />
-                    )
-                }}
-            />
-            <Tabs.Screen 
-                name="electricity"
-                options={{
-                    title: "Electricity",
-                    headerShown: false,
-                    tabBarIcon: ({color, size}) => (
-                        <Ionicons name="flash-outline" size={size} color={color} />
                     )
                 }}
             />

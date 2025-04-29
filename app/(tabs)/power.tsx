@@ -1,5 +1,6 @@
-import { Text, View, ScrollView, Dimensions, StyleSheet } from "react-native";
+import { Text, View, ScrollView, Dimensions, StyleSheet, Button } from "react-native";
 import { LineChart } from 'react-native-chart-kit';
+import React, { useEffect, useState } from "react";
 
 const chartData = {
     datasets: [
@@ -12,6 +13,41 @@ const chartData = {
 };
 
 export default function Electricity() {
+    const [apiData, setApiData] = useState([]);
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch("http://homeassistant.local:8123/api/house?id=sensor.group_house_1");
+            const json = await response.json();
+            // Example: if your API returns an array of numbers for the chart
+            setApiData(json["group_house_1"]); 
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+
+    const toggleSwitch = async () => {
+        const access_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJkYzIxMDQwZjZiNDY0OWFhYTNkNzFlZjExNGFjZjNkNiIsImlhdCI6MTc0NTIyNjYyMywiZXhwIjoyMDYwNTg2NjIzfQ.Bju2mZd182guvnDyOlvNBp4KQCTLPeAQtg-eHiOZ3-4"
+        try {
+            const response = await fetch("http://homeassistant.local:8123/api/services/switch/toggle", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access_token}`  // Replace this
+                },
+                body: JSON.stringify({
+                    entity_id: "switch.smart_meter_ivap_switch"  // Replace with your actual entity
+                })
+            });
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.header}>POWER CONSUMPTION STATISTICS</Text>
@@ -24,7 +60,7 @@ export default function Electricity() {
                 style={styles.chart}
             />
             <View style={styles.grid}>
-                {[
+                {/*{[
                   { label: "Data A", value: "200.12" },
                   { label: "Data B", value: "31.12" },
                   { label: "Data C", value: "132.62" },
@@ -34,8 +70,27 @@ export default function Electricity() {
                     <Text style={styles.cardLabel}>{item.label}</Text>
                     <Text style={styles.cardValue}>{item.value}</Text>
                   </View>
+                ))}*/}
+            {  Array.isArray(apiData) && apiData.map((item, index) => (
+                  <View key={index} style={styles.card}>
+                    <Text style={styles.cardLabel}>{item.entity_id}</Text>
+                    <Text style={styles.cardValue}>{item.state}</Text>
+                  </View>
                 ))}
+            <Button
+              onPress={fetchData}
+              title="Fetch"
+              color="#841584"
+              accessibilityLabel="Learn more about this purple button"
+            />
+            <Button
+              onPress={toggleSwitch}
+              title="Toggle"
+              color="#841584"
+              accessibilityLabel="Learn more about this purple button"
+            />
             </View>
+            
         </ScrollView>
     );
 }
@@ -91,7 +146,8 @@ const styles = StyleSheet.create({
     },
     cardLabel: {
         fontWeight: 700,
-        color: "gray"
+        color: "gray",
+        textAlign: "center",
     },
     cardValue: {
         fontSize: width * 0.08,

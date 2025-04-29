@@ -25,10 +25,10 @@ export default function Water() {
             />
             <View style={styles.grid}>
                 {[
-                  { label: "Data A", value: "200.12" },
-                  { label: "Data B", value: "31.12" },
-                  { label: "Data C", value: "132.62" },
-                  { label: "Data D", value: "140.153" },
+                  { label: "Water Use", value: "50.12" },
+                  { label: "Voltage Current", value: "1.12" },
+                  { label: "Data C", value: "22.62" },
+                  { label: "Data D", value: "4.153" },
                 ].map((item, index) => (
                   <View key={index} style={styles.card}>
                     <Text style={styles.cardLabel}>{item.label}</Text>
