@@ -1,5 +1,4 @@
-import { Text, View, StyleSheet, Image, Dimensions } from "react-native"
-import { Link } from "expo-router"
+import { View, StyleSheet, Image, Dimensions } from "react-native"
 
 export default function Home(){
     return(
