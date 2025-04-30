@@ -1,5 +1,4 @@
-import { Text, View, StyleSheet, Image, Dimensions } from "react-native"
-import { Link } from "expo-router"
+import { View, StyleSheet, Image, Dimensions } from "react-native"
 
 export default function Home(){
     return(
@@ -7,6 +6,7 @@ export default function Home(){
             <Image 
                 source={require("../../assets/images/phi.png")}
                 style={styles.image}
+                resizeMode="contain"
             />
         </View>
     );
@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     image: {
         width: width * 0.9,
         height: height * 0.5,
-        resizeMode: "contain",
         marginTop: "1cm"
     },
 })

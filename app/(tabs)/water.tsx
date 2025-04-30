@@ -62,9 +62,7 @@ const styles = StyleSheet.create({
     chart: {
         marginTop: "1cm",
         borderRadius: "0.3cm",
-        shadowColor: "#000",
-        shadowOpacity: 0.3,
-        shadowRadius: 20,
+        boxShadow: "0px 2px 20px rgba(0, 0, 0, 0.3)",
     },
     header: {
         fontSize: width * 0.07,
@@ -83,9 +81,7 @@ const styles = StyleSheet.create({
         height: height * 0.15,
         backgroundColor: "#ffffff",
         borderRadius: "0.3cm",
-        shadowColor: "#000",
-        shadowOpacity: 0.3,
-        shadowRadius: 10,
+        boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.3)",
         alignItems: "center",
         padding: "0.2cm"
     },
